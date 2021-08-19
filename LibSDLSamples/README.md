@@ -4,11 +4,17 @@ Document Design Goals:
 To integrate an address lookup system which downloads .MVT files from OSRM local server.
 
 Mini Goals:
+
 -Compile OSRM
+
 -Extract North America into OSRM installation
+
 -Setup virtual host using Apache to proxy back into the osrm-routing machine
+
 -Retrieve MVT files for map nodes
+
 -Extract coordinate data for a .MVT file
+
 -Draw coordinates from the selected .MVT file
 
 This project expects you to have OSRM somewhere either publically through the main website http://project-osrm.org/.
