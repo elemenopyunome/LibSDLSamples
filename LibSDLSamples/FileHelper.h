@@ -1,14 +1,14 @@
-#include <string>
 #ifndef FileHelper_H	
 #define FileHelper_H
-
-
+#include <string>
+#include <vector>
 class FileHelper
 {
-private:
+
 public:
 	FileHelper();
 	~FileHelper();
-	/*std::string ReadFileToString();*/
+	std::vector<std::string> GetCoordinatesByFileName(std::string FilePath);
+	std::string ReadFileToString(std::string FilePath);
 };
 #endif // !FileHelper_H

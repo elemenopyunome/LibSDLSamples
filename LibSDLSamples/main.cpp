@@ -6,11 +6,14 @@
 #define SCREEN_HEIGHT 480
 
 int main(int argc, char* args[]) {
+    FileHelper _helper;
+    std::string CompleteText = _helper.ReadFileToString("D:\\Files\\bla.txt");
+
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
         
-        if (SDL_CreateWindowAndRenderer(1024, 768, 0, &window, &renderer) == 0) {
+        if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, 0, &window, &renderer) == 0) {
             SDL_bool done = SDL_FALSE;
 
             while (!done) {
