@@ -2,18 +2,25 @@
 #include <stdio.h>
 #include <SDL_ttf.h>
 #include "FileHelper.h"
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 2560
+#define SCREEN_HEIGHT 1440
 
 int main(int argc, char* args[]) {
     FileHelper _helper;
-    std::string CompleteText = _helper.ReadFileToString("D:\\Files\\bla.txt");
+    std::vector<std::string> info = _helper.GetVectorsFromFile("D:\\Files\\bla.txt");
+    int vectsize = info.size();
+    
+    /*for (int i = 0; i < vectsize; i++)
+    {
+        std::string row = info[i];
+        std::vector<std::string> entirevector = _helper.split(row, ',');
+    }*/
 
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
         
-        if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, 0, &window, &renderer) == 0) {
+        if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, SDL_WINDOW_FULLSCREEN, &window, &renderer) == 0) {
             SDL_bool done = SDL_FALSE;
 
             while (!done) {
@@ -23,7 +30,19 @@ int main(int argc, char* args[]) {
                 SDL_RenderClear(renderer);
 
                 SDL_SetRenderDrawColor(renderer, 255, 255, 51, SDL_ALPHA_OPAQUE);
-                for (int i = 0; i < 500; i++)
+                for (int i = 0; i < vectsize; i++)
+                {
+                    std::string row = info[i];
+                    std::vector<std::string> entirevector = _helper.split(row, ',');
+                    int x1 = std::stoi(entirevector[0]);
+                    int y1 = std::stoi(entirevector[1]);
+                    int x2 = std::stoi(entirevector[2]);
+                    int y2 = std::stoi(entirevector[3]);
+                    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+                    SDL_RenderPresent(renderer);
+                    SDL_Delay(100);
+                }
+                /*for (int i = 0; i < 500; i++)
                 {
                     SDL_SetRenderDrawColor(renderer, 94, 155, 159, SDL_ALPHA_OPAQUE);
                     SDL_RenderDrawLine(renderer, 330+i, 260+i, 129, 359 + i);
@@ -39,7 +58,8 @@ int main(int argc, char* args[]) {
                     SDL_RenderDrawLine(renderer, 130 + i, 260 + i, 229, 159 + i);
                     SDL_RenderPresent(renderer);
                     SDL_Delay(100);
-                }
+                }*/
+                //SDL_Delay(9000);
                 break;
 
                 while (SDL_PollEvent(&event)) {
