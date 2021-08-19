@@ -39,8 +39,10 @@ int main(int argc, char* args[]) {
                     int x2 = std::stoi(entirevector[2]);
                     int y2 = std::stoi(entirevector[3]);
                     SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+                    //go crazy
+                    //SDL_RenderDrawLine(renderer, y1, x1, y1, x2);
                     SDL_RenderPresent(renderer);
-                    SDL_Delay(100);
+                    SDL_Delay(50);
                 }
                 /*for (int i = 0; i < 500; i++)
                 {
