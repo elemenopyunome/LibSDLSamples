@@ -2,7 +2,7 @@
 
 Document Design Goals:
 
-To integrate an address lookup system which downloads .MVT files from OSRM local server.
+To integrate an address lookup system which downloads .MVT files from OSRM local server and draw those map vector tiles to SDL rendered window
 
 Mini Goals:
 
