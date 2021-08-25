@@ -3,6 +3,7 @@
 #include <SDL_ttf.h>
 #include "FileHelper.h"
 #include "TileVectorHelper.h"
+#include "Downloader.h"
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
 
@@ -13,6 +14,9 @@ int main(int argc, char* args[]) {
     
     TileVectorHelper _tvhelper;
     std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-37.082342342, 96.923849348);
+
+    HTTPDownloader _dl;
+    bool MVTText = _dl.download_jpeg(FileURL);
 
     /*for (int i = 0; i < vectsize; i++)
     {

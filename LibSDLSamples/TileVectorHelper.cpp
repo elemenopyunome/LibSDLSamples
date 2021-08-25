@@ -28,7 +28,7 @@ std::string TileVectorHelper::GetVectorLocationByLatAndLong(double x, double y)
 	int LongTile = long2tilex(x, 13);
 	int LatTile = lat2tiley(y, 13);
 	std::string URL = "";
-	URL.append("http://router.project-osrm.org/tile/v1/car/tile(");
+	URL.append("http://192.168.254.101/tile/v1/car/tile(");
 	URL.append(std::to_string(LongTile));
 	URL.append(",");
 	URL.append(std::to_string(LatTile));

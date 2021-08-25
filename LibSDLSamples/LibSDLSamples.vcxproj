@@ -96,6 +96,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\Users\elemenopy\Downloads\curl-7.78.0\curl-7.78.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Downloader.cpp" />
     <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TileVectorHelper.cpp" />
@@ -157,6 +159,7 @@
     <Text Include="..\..\..\..\Downloads\bla.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Downloader.h" />
     <ClInclude Include="FileHelper.h" />
     <ClInclude Include="TileVectorHelper.h" />
   </ItemGroup>
