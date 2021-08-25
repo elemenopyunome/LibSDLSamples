@@ -2,14 +2,18 @@
 #include <stdio.h>
 #include <SDL_ttf.h>
 #include "FileHelper.h"
-#define SCREEN_WIDTH 2560
-#define SCREEN_HEIGHT 1440
+#include "TileVectorHelper.h"
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 
 int main(int argc, char* args[]) {
     FileHelper _helper;
     std::vector<std::string> info = _helper.GetVectorsFromFile("D:\\Files\\bla.txt");
     int vectsize = info.size();
     
+    TileVectorHelper _tvhelper;
+    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-37.082342342, 96.923849348);
+
     /*for (int i = 0; i < vectsize; i++)
     {
         std::string row = info[i];
@@ -20,7 +24,7 @@ int main(int argc, char* args[]) {
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
         
-        if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, SDL_WINDOW_FULLSCREEN, &window, &renderer) == 0) {
+        if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, SDL_WINDOW_SHOWN, &window, &renderer) == 0) {
             SDL_bool done = SDL_FALSE;
 
             while (!done) {

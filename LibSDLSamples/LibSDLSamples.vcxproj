@@ -151,12 +151,14 @@
   <ItemGroup>
     <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TileVectorHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Downloads\bla.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileHelper.h" />
+    <ClInclude Include="TileVectorHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
