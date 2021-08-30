@@ -8,21 +8,23 @@
 #define SCREEN_HEIGHT 768
 
 int main(int argc, char* args[]) {
-    FileHelper _helper;
-    std::vector<std::string> info = _helper.GetVectorsFromFile("D:\\Files\\bla.txt");
-    int vectsize = info.size();
+    
     
     TileVectorHelper _tvhelper;
-    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-37.082342342, 96.923849348);
+    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-96.808891, 32.779167);
 
     HTTPDownloader _dl;
-    bool MVTText = _dl.download_jpeg(FileURL);
-
+    //std::string Info = _dl.downloadtostring(FileURL);
+    std::string FilePath = _dl.download_mvt(FileURL);
+    FileHelper _helper;
+    std::vector<std::string> info = _helper.GetVectorsFromFile(FilePath);
+    int vectsize = info.size();
     /*for (int i = 0; i < vectsize; i++)
     {
         std::string row = info[i];
         std::vector<std::string> entirevector = _helper.split(row, ',');
     }*/
+    std::string bla = "";
 
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         SDL_Window* window = NULL;

@@ -12,7 +12,7 @@ public:
     ~HTTPDownloader();
     std::string download(const std::string& url);
     std::string downloadtostring(const std::string& url);
-    bool download_jpeg(const std::string& url);
+    std::string download_mvt(const std::string& url);
 private:
     void* curl;
 };

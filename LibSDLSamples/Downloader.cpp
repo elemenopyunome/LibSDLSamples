@@ -1,4 +1,6 @@
 #include "Downloader.h"
+#include <SDL.h>
+
 #pragma warning(disable : 4996)
 using namespace std;
 
@@ -25,7 +27,25 @@ size_t callbackfunction(void* ptr, size_t size, size_t nmemb, void* userdata)
     size_t written = fwrite((FILE*)ptr, size, nmemb, stream);
     return written;
 }
+std::string gen_random(const int len) {
 
+    std::string tmp_s;
+    static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+
+    srand((unsigned)time(NULL) * getpid());
+
+    tmp_s.reserve(len);
+
+    for (int i = 0; i < len; ++i)
+        tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
+
+
+    return tmp_s;
+
+}
 HTTPDownloader::HTTPDownloader() {
     curl = curl_easy_init();
 }
@@ -52,7 +72,7 @@ string HTTPDownloader::downloadtostring(const std::string& urlval) {
     FILE* fp;
     CURLcode res;
     const char* url = urlval.c_str();
-    char outfilename[FILENAME_MAX] = "D:\\info.mvt";
+    char outfilename[FILENAME_MAX] = "D:\\Files\info.mvt";
     curl = curl_easy_init();
     if (curl)
     {
@@ -68,18 +88,22 @@ string HTTPDownloader::downloadtostring(const std::string& urlval) {
     return "";
     //return out.str();
 }
-bool HTTPDownloader::download_jpeg(const std::string& url)
+std::string HTTPDownloader::download_mvt(const std::string& url)
 {
-    FILE* fp = fopen("D:\\out.mvt", "wb");
+    std::string BaseFileLevel = "D:\\Files\\MVTFilesRepo\\";
+    std::string RandomFileName = gen_random(26) + ".mvt";
+    std::string CompleteFilePath = BaseFileLevel + RandomFileName;
+    //char outfilename[FILENAME_MAX] = CompleteFilePath.c_str();
+    FILE* fp = fopen(CompleteFilePath.c_str(), "wb");
     if (!fp)
     {
         printf("!!! Failed to create file on the disk\n");
-        return false;
+        return "";
     }
     
     CURL* curlCtx = curl_easy_init();
-    char* outputurl = curl_easy_escape(curlCtx, url.c_str(), url.size());
-    curl_easy_setopt(curlCtx, CURLOPT_URL, outputurl);
+    //char* outputurl = curl_easy_escape(curlCtx, url.c_str(), url.size());
+    curl_easy_setopt(curlCtx, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curlCtx, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(curlCtx, CURLOPT_WRITEFUNCTION, callbackfunction);
     curl_easy_setopt(curlCtx, CURLOPT_FOLLOWLOCATION, 1);
@@ -88,7 +112,7 @@ bool HTTPDownloader::download_jpeg(const std::string& url)
     if (rc)
     {
         printf("!!! Failed to download: %s\n", url);
-        return false;
+        return "";
     }
 
     long res_code = 0;
@@ -96,12 +120,12 @@ bool HTTPDownloader::download_jpeg(const std::string& url)
     if (!((res_code == 200 || res_code == 201) && rc != CURLE_ABORTED_BY_CALLBACK))
     {
         printf("!!! Response code: %d\n", res_code);
-        return false;
+        return "";
     }
 
     curl_easy_cleanup(curlCtx);
 
     fclose(fp);
 
-    return true;
+    return CompleteFilePath;
 }
