@@ -2,6 +2,8 @@
 
 Document Design Goals: (Completed!!)
 
+To integrate an address lookup system which downloads .MVT files from OSRM local server and draw those map vector tiles to SDL rendered window
+
 Dependencies:
 -OSRM - http://project-osrm.org/
 -VTZero - https://github.com/mapbox/vtzero
@@ -9,8 +11,6 @@ Dependencies:
 -cURL - https://github.com/curl/curl
 -SDL - https://www.libsdl.org/
 -Clara - https://github.com/catchorg/Clara
-
-To integrate an address lookup system which downloads .MVT files from OSRM local server and draw those map vector tiles to SDL rendered window
 
 Mini Goals:
 
