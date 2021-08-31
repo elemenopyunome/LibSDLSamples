@@ -6,10 +6,15 @@ To integrate an address lookup system which downloads .MVT files from OSRM local
 
 Dependencies:
 -OSRM - http://project-osrm.org/
+
 -VTZero - https://github.com/mapbox/vtzero
+
 -Protzero - https://github.com/mapbox/protozero
+
 -cURL - https://github.com/curl/curl
+
 -SDL - https://www.libsdl.org/
+
 -Clara - https://github.com/catchorg/Clara
 
 Mini Goals:
