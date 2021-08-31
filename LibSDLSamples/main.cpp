@@ -6,6 +6,7 @@
 #include "Downloader.h"
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1024
+
 double round(double x, int n) {
     int d = 0;
     if ((x * pow(10, n + 1)) - (floor(x * pow(10, n))) > 4) d = 1;
@@ -15,26 +16,24 @@ double round(double x, int n) {
 int main(int argc, char* args[]) {
     double LatValue = -97.01222;
     double LongValue = 33.04583;
-    
     TileVectorHelper _tvhelper;
-    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(LatValue, LongValue);
-
     HTTPDownloader _dl;
-    std::string FilePath = _dl.download_mvt(FileURL);
     FileHelper _helper;
-    std::vector<std::string> info = _helper.GetVectors(FilePath);
-    int vectsize = info.size();
-    int MajorDivider = 3;
+    int VectorDivider = 3;
+    double Multiplier = 0.02;
+    std::string FileURL = "";
+    std::string FilePath = "";
+    bool PresentDataChange = false;
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
         SDL_Event event;
         int quit = 0;
-        double Multiplier = 0.02;
+        
         if (SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_WIDTH, SDL_WINDOW_SHOWN, &window, &renderer) == 0) {
             SDL_bool done = SDL_FALSE;
             SDL_RenderClear(renderer);
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            
             while (!quit)
             {
                 while (SDL_PollEvent(&event))
@@ -45,16 +44,25 @@ int main(int argc, char* args[]) {
                             switch (event.key.keysym.sym)
                             {
                             case SDLK_LEFT:
-                                LongValue += Multiplier;
+                                LongValue -= Multiplier;
+                                PresentDataChange = true;
                                 break;
                             case SDLK_RIGHT:
-                                LongValue -= Multiplier;
+                                LongValue += Multiplier;
+                                PresentDataChange = true;
                                 break;
                             case SDLK_UP:
                                 LatValue += Multiplier;
+                                PresentDataChange = true;
                                 break;
                             case SDLK_DOWN:
                                 LatValue -= Multiplier;
+                                PresentDataChange = true;
+                                break;
+                            case SDLK_r:
+                                LatValue = -97.01222;
+                                LongValue =33.04583;
+                                PresentDataChange = true;
                                 break;
                             case SDLK_x:
                                 quit = 1;
@@ -63,63 +71,32 @@ int main(int argc, char* args[]) {
                                 break;
                             }
                     }
-                    FileURL = _tvhelper.GetVectorLocationByLatAndLong(round(LatValue,6), round(LongValue,6));
-
+                }
+                if(PresentDataChange)
+                {
+                    FileURL = _tvhelper.GetVectorLocationByLatAndLong(round(LatValue, 6), round(LongValue, 6));
                     FilePath = _dl.download_mvt(FileURL);
                     std::vector<std::string> infotemp = _helper.GetVectors(FilePath);
                     int vectsize = infotemp.size();
-                    SDL_RenderClear(renderer);
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
                     SDL_RenderClear(renderer);
-                    SDL_RenderPresent(renderer);
-                    
                     SDL_SetRenderDrawColor(renderer, 255, 255, 51, SDL_ALPHA_OPAQUE);
                     for (int i = 0; i < vectsize; i++)
                     {
                         std::string row = infotemp[i];
                         std::vector<std::string> entirevector = _helper.split(row, ',');
-                        int x1 = std::stoi(entirevector[0]) / MajorDivider;
-                        int y1 = std::stoi(entirevector[1]) / MajorDivider;
-                        int x2 = std::stoi(entirevector[2]) / MajorDivider;
-                        int y2 = std::stoi(entirevector[3]) / MajorDivider;
+                        int x1 = std::stoi(entirevector[0]) / VectorDivider;
+                        int y1 = std::stoi(entirevector[1]) / VectorDivider;
+                        int x2 = std::stoi(entirevector[2]) / VectorDivider;
+                        int y2 = std::stoi(entirevector[3]) / VectorDivider;
                         SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
-                        
+
                     }
                     SDL_RenderPresent(renderer);
-                    //SDL_Delay(3000);
-                        //SDL_Delay(3000);
+                    PresentDataChange = false;
+                //SDL_Delay(3000);
                 }
             }
-            //while (!done) 
-            //{
-            //    SDL_Event event;
-
-            //    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-            //    SDL_RenderClear(renderer);
-
-            //    SDL_SetRenderDrawColor(renderer, 255, 255, 51, SDL_ALPHA_OPAQUE);
-            //    for (int i = 0; i < vectsize; i++)
-            //    {
-            //        std::string row = info[i];
-            //        std::vector<std::string> entirevector = _helper.split(row, ',');
-            //        int x1 = std::stoi(entirevector[0]) / MajorDivider;
-            //        int y1 = std::stoi(entirevector[1]) / MajorDivider;
-            //        int x2 = std::stoi(entirevector[2]) / MajorDivider;
-            //        int y2 = std::stoi(entirevector[3]) / MajorDivider;
-            //        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
-            //        SDL_RenderPresent(renderer);
-            //        //SDL_Delay(50);
-            //    }
-            //    
-            //    SDL_Delay(19000);
-            //    break;
-
-            //    while (SDL_PollEvent(&event)) {
-            //        if (event.type == SDL_QUIT) {
-            //            done = SDL_TRUE;
-            //        }
-            //    }
-            //}
         }
 
         if (renderer) {
