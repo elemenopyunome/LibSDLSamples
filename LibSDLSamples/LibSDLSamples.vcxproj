@@ -96,7 +96,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\elemenopy\source\repos\vtzero\include\;C:\Users\elemenopy\Downloads\curl-7.78.0\curl-7.78.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\elemenopy\source\repos\Clara\include;C:\Users\elemenopy\source\repos\protozero\include;C:\Users\elemenopy\source\repos\vtzero\include\;C:\Users\elemenopy\Downloads\curl-7.78.0\curl-7.78.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,6 +154,7 @@
     <ClCompile Include="FileHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TileVectorHelper.cpp" />
+    <ClCompile Include="VTZeroUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Downloads\bla.txt" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Downloader.h" />
     <ClInclude Include="FileHelper.h" />
     <ClInclude Include="TileVectorHelper.h" />
+    <ClInclude Include="VTZeroUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

@@ -12,5 +12,6 @@ public:
 	std::string ReadFileToString(std::string FilePath);
 	std::vector<std::string> GetVectorsFromString(std::string My_String);
 	std::vector<std::string> split(std::string my_str, char delimiter);
+	std::vector<std::string> GetVectors(std::string FilePath);
 };
 #endif // !FileHelper_H

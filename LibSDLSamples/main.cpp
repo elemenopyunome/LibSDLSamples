@@ -4,26 +4,27 @@
 #include "FileHelper.h"
 #include "TileVectorHelper.h"
 #include "Downloader.h"
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1024
 
 int main(int argc, char* args[]) {
     
     
     TileVectorHelper _tvhelper;
-    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-96.808891, 32.779167);
+    std::string FileURL = _tvhelper.GetVectorLocationByLatAndLong(-95.42842, 29.05344);
 
     HTTPDownloader _dl;
     //std::string Info = _dl.downloadtostring(FileURL);
     std::string FilePath = _dl.download_mvt(FileURL);
     FileHelper _helper;
-    std::vector<std::string> info = _helper.GetVectorsFromFile(FilePath);
+    std::vector<std::string> info = _helper.GetVectors(FilePath);
     int vectsize = info.size();
     /*for (int i = 0; i < vectsize; i++)
     {
         std::string row = info[i];
         std::vector<std::string> entirevector = _helper.split(row, ',');
     }*/
+    int MajorDivider = 3;
     std::string bla = "";
 
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
@@ -44,15 +45,15 @@ int main(int argc, char* args[]) {
                 {
                     std::string row = info[i];
                     std::vector<std::string> entirevector = _helper.split(row, ',');
-                    int x1 = std::stoi(entirevector[0]);
-                    int y1 = std::stoi(entirevector[1]);
-                    int x2 = std::stoi(entirevector[2]);
-                    int y2 = std::stoi(entirevector[3]);
+                    int x1 = std::stoi(entirevector[0]) / MajorDivider;
+                    int y1 = std::stoi(entirevector[1]) / MajorDivider;
+                    int x2 = std::stoi(entirevector[2]) / MajorDivider;
+                    int y2 = std::stoi(entirevector[3]) / MajorDivider;
                     SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
                     //go crazy
                     //SDL_RenderDrawLine(renderer, y1, x1, y1, x2);
                     SDL_RenderPresent(renderer);
-                    SDL_Delay(50);
+                    //SDL_Delay(50);
                 }
                 /*for (int i = 0; i < 500; i++)
                 {
@@ -71,7 +72,7 @@ int main(int argc, char* args[]) {
                     SDL_RenderPresent(renderer);
                     SDL_Delay(100);
                 }*/
-                //SDL_Delay(9000);
+                SDL_Delay(19000);
                 break;
 
                 while (SDL_PollEvent(&event)) {
